@@ -1,0 +1,31 @@
+// remove the name of the artboard from all layers of this artboard
+var allArtboards = [[doc currentPage] artboards]
+
+function addArtboardNameToLayerName(artboardName, layer) {
+	var layerName = [layer name];
+	if(layerName.indexOf(artboardName + "/") !== 0) {
+		var newName = artboardName + "/" + [layer name];
+		[layer setName:newName]
+	}
+}
+
+function removeArtboardNameFromLayerName(artboardName, layer) {
+	var layerName = [layer name];
+	if(layerName.indexOf(artboardName) === 0) {
+	  	var newName = [layer name].replace(artboardName + "/", "");
+  		[layer setName:newName]
+	}
+}
+
+for (var i=0; i < [allArtboards length]; i++){
+
+	var artboard = [allArtboards objectAtIndex:i]
+	var artboardName = [artboard name]
+	var layers = [artboard layers]
+
+	for (var j=0; j < [layers length]; j++){
+ 		var layer = [layers objectAtIndex:j];
+		//addArtboardNameToLayerName(artboardName, layer);
+		removeArtboardNameFromLayerName(artboardName, layer);
+	}
+}
